@@ -31,3 +31,11 @@ Duplicates are removed in the queries generated, but isomorphismic query graphs 
 
 However, in a big data graph the graph isomorphism case should be rare because we are digging based on a random model.
 
+
+We consider different query patterns.
+
+For line query, we only need to specify how many vertices in the query and do not need to specify the edge number. The query requirements(query info) file will indicate query vertices and query num in each line.
+For example,
+5 3
+6 3
+which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.

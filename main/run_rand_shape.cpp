@@ -1,6 +1,11 @@
 /*=============================================================================
-# Description: for line query pattern
+# Filename: dig.cpp
+# Author: Bookug Lobert 
+# Mail: 1181955272@qq.com
+# Last Modified: 2016-10-24 14:39
+# Description: 
 =============================================================================*/
+
 #include "../util/Util.h"
 #include "../io/IO.h"
 #include "../graph/Graph.h"
@@ -14,9 +19,6 @@ vector<int> node_list;
 vector<int> edge_list;
 vector<int> query_list;
 
-
-
-
 int
 main(int argc, const char * argv[])
 {
@@ -28,9 +30,7 @@ main(int argc, const char * argv[])
 		cerr<<"invalid arguments!"<<endl;
 		return -1;
 	}
-    //data file
 	string data = argv[1];
-    //query requirement file
 	string query = argv[2];
 	if(argc == 4)
 	{
@@ -39,15 +39,10 @@ main(int argc, const char * argv[])
 
 	cerr<<"args all got!"<<endl;
 	long t1 = Util::get_cur_time();
-    
 
-    //initialize IO with file path of query requirements, data , output directory
 	IO io = IO(query, data, output);
 	//read query file and keep all queries in memory
-    //read into node_list,edge_list,query_list
 	io.input(node_list, edge_list, query_list);
-
-
 	int qnum = query_list.size();
 	
 //	cerr<<"input ok!"<<endl;

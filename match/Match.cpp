@@ -294,7 +294,8 @@ Match::match(IO& io)
 
             if (queryFound) 
             {
-//                cout<<"to check duplicates"<<endl;
+                //found a random query which satisfies the query vertex count and edge count
+
                 //check if duplicates
                 if(isDuplicate(query_set, vlabel, edge, elabel))
                 {
