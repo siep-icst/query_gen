@@ -5,7 +5,7 @@
 #include "../io/IO.h"
 #include "../graph/Graph.h"
 #include "../match/Match.h"
-#include "../patterns/query_patterns.h"
+#include "../patterns/Query_patterns.h"
 
 using namespace std;
 
@@ -22,38 +22,37 @@ main(int argc, const char * argv[])
 {
 	int i, j, k;
 
-	string output = "query";
+	string query_dir = "query";
 	if(argc > 4 || argc < 3)
 	{
 		cerr<<"invalid arguments!"<<endl;
 		return -1;
 	}
     //data file
-	string data = argv[1];
+	string data_path = argv[1];
     //query requirement file
-	string query = argv[2];
+	string query_req_path = argv[2];
 	if(argc == 4)
 	{
-		output = argv[3];
+		query_dir = argv[3];
 	}
 
 	cerr<<"args all got!"<<endl;
 	long t1 = Util::get_cur_time();
     
-
-    //initialize IO with file path of query requirements, data , output directory
-	IO io = IO(query, data, output);
-	//read query file and keep all queries in memory
-    //read into node_list,edge_list,query_list
-	io.input(node_list, edge_list, query_list);
+	//initialize line_query with query requirement
+	Line_query line_query=Line_query(query_req_path,query_dir);
+	// fill this three list
+	line_query.get_req_list(node_list,edge_list,query_list);
 
 
 	int qnum = query_list.size();
 	
-//	cerr<<"input ok!"<<endl;
-//	long t2 = Util::get_cur_time();
 
+
+	//read data graph
 	Graph* data_graph = NULL;
+	
 	while(true)
 	{
 		if(!io.input(data_graph))
