@@ -12,14 +12,14 @@ class IO_data
 public:
 
 	IO_data();
-	IO_data(std::string data_path);
+	IO_data(std::string _data_path);
 	~IO_data();
 
-	bool get_data_graph(Graph*& data_graph);
-	Graph* input(FILE* fp);
-	bool output(int qid);
+	bool get_data_graph(Graph*& _data_graph);
+	Graph* input(FILE* _fp);
+	bool output(int _qid);
 	bool output();
-	bool output(int* m, int size);
+	bool output(int* _m, int _size);
 	void flush();
     FILE* getOFP() const
     {
@@ -28,11 +28,12 @@ public:
 
 
 private:
-	std::string line;
+	std::string segreg_line;
 	//graph id
 	int data_id;
 	//data file pointer
 	FILE* data_ptr;
+	FILE* output_ptr;
 };
 
 

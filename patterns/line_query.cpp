@@ -15,7 +15,7 @@ Line_query::Line_query(std::string _query_req_path, std::string _query_dir)
 	this->query_req_ptr=fopen(_query_req_path.c_str(),"r");
 
     this->query_dir = _query_dir;
-    Util::create_dir(_dir);
+    Util::create_dir(_query_dir);
 }
 
 Line_query::~Line_query()

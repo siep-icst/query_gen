@@ -5,37 +5,37 @@
 
 using namespace std;
 
-IO::IO()
+IO_data::IO_data()
 {
-	this->dfp = NULL;
-	this->ofp = NULL;
-	this->data_id = -1;
+	this->data_id=-1;
+	this->data_ptr=NULL;
+	this->segreg_line="============================================================";
 }
 
-IO::IO(string query, string data, string _dir)
+IO_data::IO_data(std::string _data_path)
 {
-	this->data_id = -1;
-	this->line = "============================================================";
-	qfn = query;
-	dfp = fopen(data.c_str(), "r");
-	if(dfp == NULL)
+	this->data_id=-1;
+	this->segreg_line="============================================================";
+	this->data_ptr=fopen(_data_path.c_str(),"r");
+	if(this->data_ptr == NULL)
 	{
-		cerr<<"input open error!"<<endl;
+		cerr<<"data file open error!"<<endl;
 		return;
 	}
-//	ofp = fopen(file.c_str(), "w+");
-//	if(ofp == NULL)
-//	{
-//		cerr<<"output open error!"<<endl;
-//		return;
-//	}
-    this->ofp = NULL;
-    this->output_directory = _dir;
-    Util::create_dir(_dir);
+}
+
+bool IO_data::get_data_graph(Graph*& _data_graph)
+{
+	_data_graph = this->input(this->data_ptr);
+	if(_data_graph == NULL)
+		return false;
+	// a new data graph read
+	this->data_id++;
+	return true;
 }
 
 Graph* 
-IO::input(FILE* fp)
+IO::input(FILE* _fp)
 {
 	char c1, c2;
 	int id0, id1, id2, lb;
@@ -44,16 +44,16 @@ IO::input(FILE* fp)
 
 	while(true)
 	{
-		fscanf(fp, "%c", &c1);
+		fscanf(_fp, "%c", &c1);
 		if(c1 == 't')
 		{
 			if(flag)
 			{
-				fseek(fp, -1, SEEK_CUR);
+				fseek(_fp, -1, SEEK_CUR);
 				return ng;
 			}
 			flag = true;
-			fscanf(fp, " %c %d\n", &c2, &id0);
+			fscanf(_fp, " %c %d\n", &c2, &id0);
 			if(id0 == -1)
 			{
 				return NULL;
@@ -62,17 +62,17 @@ IO::input(FILE* fp)
 			{
 				ng = new Graph;
 				int nodeNum, edgeNum, ln1, ln2;
-				fscanf(fp, "%d %d %d %d\n",&nodeNum,&edgeNum, &ln1, &ln2);
+				fscanf(_fp, "%d %d %d %d\n",&nodeNum,&edgeNum, &ln1, &ln2);
 			}
 		}
 		else if(c1 == 'v')
 		{
-			fscanf(fp, " %d %d\n", &id1, &lb);
+			fscanf(_fp, " %d %d\n", &id1, &lb);
 			ng->addVertex(lb); 
 		}
 		else if(c1 == 'e')
 		{
-			fscanf(fp, " %d %d %d\n", &id1, &id2, &lb);
+			fscanf(_fp, " %d %d %d\n", &id1, &id2, &lb);
 			//NOTICE:we treat this graph as directed, each edge represents two
 			//This may cause too many matchings, if to reduce, only add the first one
 			ng->addEdge(id1, id2, lb);
@@ -87,47 +87,13 @@ IO::input(FILE* fp)
 	return NULL;
 }
 
-bool 
-IO::input(Graph*& data_graph)
-{
-	data_graph = this->input(this->dfp);
-	if(data_graph == NULL)
-		return false;
-	// a new data graph read
-	this->data_id++;
-	return true;
-}
 
-bool 
-IO::input(vector<int>& node_list, vector<int>& edge_list, vector<int>& query_list)
-{
-	//to generate what kind of query
-	int queryNodeNum = 0;
-	int queryEdgeNum = 0;
-    int queryNum = 0;
-	std::ifstream ifs(qfn.c_str());
-	while (true)
-	{
-		ifs >> queryNodeNum;
-		if (queryNodeNum == -1) {
-			break;
-		}
-		ifs >> queryEdgeNum;
-        ifs >> queryNum;
-		//cout << queryNodeNum << " to add!" << endl;
-		node_list.push_back(queryNodeNum);
-		edge_list.push_back(queryEdgeNum);
-        query_list.push_back(queryNum);
-	}
-	ifs.close();
-	return true;
-}
 
 bool 
 IO::output(int qid)
 {
-	fprintf(ofp, "query graph:%d    data graph:%d\n", qid, this->data_id);
-	fprintf(ofp, "%s\n", line.c_str());
+	fprintf(this->output_ptr, "query graph:%d    data graph:%d\n", qid, this->data_id);
+	fprintf(this->output_ptr, "%s\n", this->segreg_line.c_str());
 	return true;
 }
 
