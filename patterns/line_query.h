@@ -15,13 +15,14 @@ class line_query
 
 
     private:
+    std::string segreg_line;
 	// std::string line;
 	int data_id;
 	//query file pointer
-	std::string q_req_ptr;
+	FILE* query_req_ptr;
 	//data file pointer
-	FILE* d_ptr;
+	FILE* data_ptr;
 	//output file pointer
-	FILE* q_ptr;
+	FILE* query_ptr;
     std::string output_directory;
 }
