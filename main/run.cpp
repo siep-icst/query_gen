@@ -52,7 +52,9 @@ main(int argc, const char * argv[])
 
 	//read data graph
 	Graph* data_graph = NULL;
+
 	
+	// can read more than one data graph, and random walk on each graph to generate query
 	while(true)
 	{
 		if(!io.input(data_graph))
