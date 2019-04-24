@@ -296,6 +296,7 @@ Match::match(std::string _query_dir)
 
             if (queryFound) 
             {
+                printf("queryFound, check if duplicate\n");
                 //found a random query which satisfies the query vertex count and edge count
 
                 //check if duplicates
