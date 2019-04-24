@@ -66,7 +66,7 @@ main(int argc, const char * argv[])
 		cout << "one dataset read done!" << endl;
 		for(int i = 0; i < qnum; ++i)
 		{
-			print("in query requirement txt, there are %d different requirement\n", qnum);
+			printf("in query requirement txt, there are %d different requirement\n", qnum);
 			//initialize
 			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
@@ -74,7 +74,7 @@ main(int argc, const char * argv[])
             m.match(query_dir);
 		}
 		
-		print("in this data graph, all querys are done\n");
+		printf("in this data graph, all querys are done\n");
 		delete data_graph;
 	}
 
