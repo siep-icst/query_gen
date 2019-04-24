@@ -1,6 +1,6 @@
 if [ -d "./query/" ]
 then
-    rm -r query
+    rm query/*
 fi
 make clean
 make
