@@ -1,6 +1,5 @@
-
-// #ifndef _IO_IO_H
-// #define _IO_IO_H
+#ifndef _LINE_QUERY_H
+#define _LINE_QUERY_H
 
 #include "../util/Util.h"
 #include "../graph/Graph.h"
@@ -26,3 +25,5 @@ class Line_query
 	FILE* query_ptr;
     std::string query_dir;
 };
+
+#endif

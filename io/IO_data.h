@@ -2,7 +2,8 @@
 io data file, create data graph
 =============================================================================*/
 
-
+#ifndef _IO_DATA_H
+#define _IO_DATA_H
 
 #include "../util/Util.h"
 #include "../graph/Graph.h"
@@ -38,5 +39,6 @@ private:
 	FILE* ofp;
 };
 
+#endif
 
 
