@@ -19,7 +19,7 @@ public:
     static int query_count;
 	Match(int queryNodeNum, int queryEdgeNum, int queryNum, Graph* _data);
 	void match(IO& io);
-	void Match::match(std::string _query_dir)
+	void match(std::string _query_dir);
 	~Match();
 
 private:
