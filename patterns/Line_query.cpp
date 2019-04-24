@@ -34,9 +34,9 @@ Line_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_lis
 
 	while (true)
 	{
-        std::ifstream query_req_ifs(this->query_req_path);
+        std::ifstream query_req_ifs(this->query_req_path.c_str());
         int queryNodeNum;
-		query_req_f >> queryNodeNum;
+		query_req_ifs >> queryNodeNum;
 		if (queryNodeNum <=0) 
         {
 			break;
@@ -44,7 +44,7 @@ Line_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_lis
 
 	    int queryEdgeNum = queryNodeNum-1;
         int queryNum;
-        query_req_f >> queryNum;
+        query_req_ifs >> queryNum;
 		node_list.push_back(queryNodeNum);
 		edge_list.push_back(queryEdgeNum);
         query_list.push_back(queryNum);
