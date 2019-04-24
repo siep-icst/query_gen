@@ -90,6 +90,7 @@ main(int argc, const char * argv[])
 	//release all and flush cached writes
 	//io.flush();
 
+	printf("end of main function\n");
 	return 0;
 }
 
