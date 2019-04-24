@@ -35,7 +35,7 @@ bool IO_data::get_data_graph(Graph*& _data_graph)
 }
 
 Graph* 
-IO::input(FILE* _fp)
+IO_data::input(FILE* _fp)
 {
 	char c1, c2;
 	int id0, id1, id2, lb;
@@ -90,7 +90,7 @@ IO::input(FILE* _fp)
 
 
 bool 
-IO::output(int qid)
+IO_data::output(int qid)
 {
 	fprintf(this->output_ptr, "query graph:%d    data graph:%d\n", qid, this->data_id);
 	fprintf(this->output_ptr, "%s\n", this->segreg_line.c_str());
@@ -98,7 +98,7 @@ IO::output(int qid)
 }
 
 bool
-IO::output()
+IO_data::output()
 {
 	//this query ended
 	fprintf(ofp, "t # -1\n");
@@ -106,7 +106,7 @@ IO::output()
 }
 
 bool 
-IO::output(int* m, int size)
+IO_data::output(int* m, int size)
 {
 	for(int i = 0; i < size; ++i)
 	{
@@ -117,12 +117,12 @@ IO::output(int* m, int size)
 }
 
 void
-IO::flush()
+IO_data::flush()
 {
 	fflush(this->ofp);
 }
 
-IO::~IO()
+IO_data::~IO()
 {
 	fclose(this->dfp);
 	this->dfp = NULL;
