@@ -1,6 +1,7 @@
 if [ -d "./query/" ]
 then
     rm -r query
+fi
 git fetch origin
 git merge origin/master
 make clean
