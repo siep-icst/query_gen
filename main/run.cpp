@@ -65,6 +65,7 @@ main(int argc, const char * argv[])
 		cout << "one dataset read done!" << endl;
 		for(int i = 0; i < qnum; ++i)
 		{
+			print("in query requirement txt, there are %d different requirement\n", qnum);
 			//initialize
 			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
