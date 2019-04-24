@@ -17,7 +17,7 @@ vector<int> node_list;
 vector<int> edge_list;
 vector<int> query_list;
 
-void run_line_query(string _query_req_path,_query_dir,_data_path)
+void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 {
 	Line_query line_query(_query_req_path,_query_dir);
 		// fill this three list
