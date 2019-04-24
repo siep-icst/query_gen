@@ -7,6 +7,7 @@
 #include "../graph/Graph.h"
 #include "../match/Match.h"
 #include "../patterns/Query_patterns.h"
+#include <utility>
 
 
 using namespace std;
