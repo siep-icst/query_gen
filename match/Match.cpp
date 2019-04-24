@@ -110,7 +110,7 @@ Match::isDuplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::vecto
 }
 
 void 
-Match::match(IO& io)
+Match::match(std::string _query_dir)
 {
 //    cout<<"check sortEdges: "<<sizeof(sortEdges)<<endl;
 	if(qsize > dsize)
@@ -303,7 +303,7 @@ Match::match(IO& io)
                 }
 
                 //output the query graph
-                string file = io.getOutputDIR() + "/q" + Util::int2string(Match::query_count) + ".g";
+                string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
                 FILE* ofp = fopen(file.c_str(), "w+");
 
                 fprintf(ofp, "t # %d\n", Match::query_count);

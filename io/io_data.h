@@ -33,7 +33,9 @@ private:
 	int data_id;
 	//data file pointer
 	FILE* data_ptr;
-	FILE* output_ptr;
+
+	//not used
+	FILE* ofp;
 };
 
 

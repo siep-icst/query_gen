@@ -20,7 +20,6 @@ vector<int> query_list;
 int
 main(int argc, const char * argv[])
 {
-	int i, j, k;
 
 	string query_dir = "query";
 	if(argc > 4 || argc < 3)
@@ -52,23 +51,24 @@ main(int argc, const char * argv[])
 
 	//read data graph
 	Graph* data_graph = NULL;
-
+	IO_data io_data=IO_data(data_path);
 	
 	// can read more than one data graph, and random walk on each graph to generate query
 	while(true)
 	{
-		if(!io.input(data_graph))
+		if(!io_data.get_data_graph(data_graph))
 		{
 			break;
 		}
 		cout << "one dataset read done!" << endl;
-		for(i = 0; i < qnum; ++i)
+		for(int i = 0; i < qnum; ++i)
 		{
+			//initialize
 			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
-            m.match(io);
+			// generate query and put into this dir
+            m.match(_query_dir);
 		}
-//        io.output();
 		delete data_graph;
 	}
 
