@@ -1,1 +1,1 @@
-./run.exe delaunay_n13_prev.txt query_requirement/line_query_request.txt 
+./run.exe delaunay_n13_prev.txt query_requirement/line_query_request.txt ~/query_gen_res
