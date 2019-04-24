@@ -124,8 +124,12 @@ IO_data::flush()
 
 IO_data::~IO_data()
 {
-	fclose(this->data_ptr);
-	this->data_ptr = NULL;
+	if(this->data_ptr!=NULL)
+	{
+		fclose(this->data_ptr);
+		this->data_ptr=NULL;		
+	}
+
     if(this->output_ptr != NULL)
     {
         //NOTICE: fclose(NULL) will cause error, while fflush(NULL) is ok

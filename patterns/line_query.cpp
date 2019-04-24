@@ -1,4 +1,5 @@
 #include "Line_query.h"
+#include<iostream>
 using namespace std;
 
 
@@ -25,6 +26,7 @@ Line_query::~Line_query()
         fclose(this->query_ptr);
         this->query_ptr = NULL;
     }
+    printf("Line_query destructer end\n");
 }
 
 bool 
