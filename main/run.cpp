@@ -76,6 +76,7 @@ main(int argc, const char * argv[])
 		
 		printf("in this data graph, all querys are done\n");
 		delete data_graph;
+		printf("variable data_graph deleted\n");
 	}
 
 //	cerr<<"match ended!"<<endl;
