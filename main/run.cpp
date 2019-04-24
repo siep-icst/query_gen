@@ -17,7 +17,45 @@ vector<int> node_list;
 vector<int> edge_list;
 vector<int> query_list;
 
+void run_line_query(string _query_req_path,_query_dir,_data_path)
+{
+	Line_query line_query(_query_req_path,_query_dir);
+		// fill this three list
+		line_query.get_req_list(node_list,edge_list,query_list);
+		
 
+
+		int qnum = query_list.size();
+		
+
+
+		//read data graph
+		Graph* data_graph = NULL;
+		IO_data io_data=IO_data(_data_path);
+		
+		// can read more than one data graph, and random walk on each graph to generate query
+		while(true)
+		{
+			if(!io_data.get_data_graph(data_graph))
+			{
+				break;
+			}
+			cout << "one dataset read done!" << endl;
+			for(int i = 0; i < qnum; ++i)
+			{
+				printf("in query requirement txt, there are %d different requirement\n", qnum);
+				//initialize
+				Match m(node_list[i], edge_list[i], query_list[i], data_graph);
+				//random walk to find match
+				// generate query and put into this dir
+				m.match(_query_dir);
+			}
+			
+			printf("in this data graph, all querys are done\n");
+			delete data_graph;
+			printf("variable data_graph deleted\n");
+		}
+}
 
 
 int
@@ -25,58 +63,29 @@ main(int argc, const char * argv[])
 {
 
 	string query_dir = "query";
-	if(argc > 4 || argc < 3)
+	if(argc > 5 || argc < 4)
 	{
 		cerr<<"invalid arguments!"<<endl;
 		return -1;
 	}
     //data file
-	string data_path = argv[1];
+	string query_pattern=argv[1];
+	string data_path = argv[2];
     //query requirement file
-	string query_req_path = argv[2];
-	if(argc == 4)
+	string query_req_path = argv[3];
+	if(argc == 5)
 	{
-		query_dir = argv[3];
+		query_dir = argv[4];
 	}
 
 	cerr<<"args all got!"<<endl;
 	long t1 = Util::get_cur_time();
     
 	//initialize line_query with query requirement
-	Line_query line_query(query_req_path,query_dir);
-	// fill this three list
-	line_query.get_req_list(node_list,edge_list,query_list);
 
-
-	int qnum = query_list.size();
-	
-
-
-	//read data graph
-	Graph* data_graph = NULL;
-	IO_data io_data=IO_data(data_path);
-	
-	// can read more than one data graph, and random walk on each graph to generate query
-	while(true)
+	if(query_pattern=="line")
 	{
-		if(!io_data.get_data_graph(data_graph))
-		{
-			break;
-		}
-		cout << "one dataset read done!" << endl;
-		for(int i = 0; i < qnum; ++i)
-		{
-			printf("in query requirement txt, there are %d different requirement\n", qnum);
-			//initialize
-			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
-			//random walk to find match
-			// generate query and put into this dir
-            m.match(query_dir);
-		}
-		
-		printf("in this data graph, all querys are done\n");
-		delete data_graph;
-		printf("variable data_graph deleted\n");
+		run_line_query(query_req_path,query_dir,data_path);
 	}
 
 //	cerr<<"match ended!"<<endl;
