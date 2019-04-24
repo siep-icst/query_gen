@@ -42,7 +42,7 @@ main(int argc, const char * argv[])
 	long t1 = Util::get_cur_time();
     
 	//initialize line_query with query requirement
-	Line_query line_query=Line_query(query_req_path,query_dir);
+	Line_query line_query(query_req_path,query_dir);
 	// fill this three list
 	line_query.get_req_list(node_list,edge_list,query_list);
 
