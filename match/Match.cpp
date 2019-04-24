@@ -351,5 +351,7 @@ Match::match(std::string _query_dir)
     {
         delete[] query_set[i];
     }
+
+    printf("match function end\n");
 }
 
