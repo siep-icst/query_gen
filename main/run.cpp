@@ -71,6 +71,8 @@ main(int argc, const char * argv[])
 			// generate query and put into this dir
             m.match(query_dir);
 		}
+		
+		print("in this data graph, all querys are done\n");
 		delete data_graph;
 	}
 
