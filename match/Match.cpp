@@ -296,7 +296,7 @@ Match::match(std::string _query_dir)
 
             if (queryFound) 
             {
-                printf("queryFound, check if duplicate\n");
+                
                 //found a random query which satisfies the query vertex count and edge count
 
                 //check if duplicates
@@ -304,7 +304,7 @@ Match::match(std::string _query_dir)
                 {
                     continue;
                 }
-
+                printf("query found, query count: \n");
                 //output the query graph
                 string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
                 FILE* ofp = fopen(file.c_str(), "w+");
