@@ -21,7 +21,7 @@ class Line_query
 
     std::string segreg_line;
 	//query file pointer
-	FILE* query_req_ptr;
+	std::string query_req_path;
 	//output file pointer
 	FILE* query_ptr;
     std::string query_dir;
