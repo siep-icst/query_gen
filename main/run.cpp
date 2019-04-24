@@ -3,9 +3,11 @@
 =============================================================================*/
 #include "../util/Util.h"
 #include "../io/IO.h"
+#include "../io/IO_data.h"
 #include "../graph/Graph.h"
 #include "../match/Match.h"
 #include "../patterns/Query_patterns.h"
+
 
 using namespace std;
 
@@ -67,7 +69,7 @@ main(int argc, const char * argv[])
 			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
 			// generate query and put into this dir
-            m.match(_query_dir);
+            m.match(query_dir);
 		}
 		delete data_graph;
 	}
@@ -81,7 +83,7 @@ main(int argc, const char * argv[])
 //	cerr<<"total time used: "<<(t3-t1)<<"ms"<<endl;
 
 	//release all and flush cached writes
-	io.flush();
+	//io.flush();
 
 	return 0;
 }

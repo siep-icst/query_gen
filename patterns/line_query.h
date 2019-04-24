@@ -7,6 +7,8 @@
 
 class Line_query
 {
+    public:
+    
     Line_query();
 	Line_query(std::string query_req_path, std::string query_dir);
 
@@ -23,4 +25,4 @@ class Line_query
 	//output file pointer
 	FILE* query_ptr;
     std::string query_dir;
-}
+};
