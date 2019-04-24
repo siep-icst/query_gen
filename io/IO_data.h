@@ -36,7 +36,9 @@ private:
 	FILE* data_ptr;
 
 	//not used
-	FILE* ofp;
+	FILE* output_ptr;
+
+	
 };
 
 #endif

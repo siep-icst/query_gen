@@ -101,7 +101,7 @@ bool
 IO_data::output()
 {
 	//this query ended
-	fprintf(ofp, "t # -1\n");
+	fprintf(this->output_ptr, "t # -1\n");
 	return true;
 }
 
@@ -110,7 +110,7 @@ IO_data::output(int* m, int size)
 {
 	for(int i = 0; i < size; ++i)
 	{
-		fprintf(ofp, "(%d, %d) ", i, m[i]);
+		fprintf(this->output_ptr, "(%d, %d) ", i, m[i]);
 	}
 	fprintf(ofp, "\n");
 	return true;
@@ -119,18 +119,18 @@ IO_data::output(int* m, int size)
 void
 IO_data::flush()
 {
-	fflush(this->ofp);
+	fflush(this->output_ptr);
 }
 
 IO_data::~IO()
 {
-	fclose(this->dfp);
-	this->dfp = NULL;
-    if(this->ofp != NULL)
+	fclose(this->data_ptr);
+	this->data_ptr = NULL;
+    if(this->output_ptr != NULL)
     {
         //NOTICE: fclose(NULL) will cause error, while fflush(NULL) is ok
-        fclose(this->ofp);
-        this->ofp = NULL;
+        fclose(this->output_ptr);
+        this->output_ptr = NULL;
     }
 }
 

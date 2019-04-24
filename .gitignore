@@ -2,3 +2,4 @@
 *.exe
 objs/*
 *.o
+*.bat

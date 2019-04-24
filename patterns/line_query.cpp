@@ -48,6 +48,7 @@ Line_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_lis
 		node_list.push_back(queryNodeNum);
 		edge_list.push_back(queryEdgeNum);
         query_list.push_back(queryNum);
+        query_req_ifs.close();
 	}
 	return true;
 }
