@@ -112,7 +112,7 @@ IO_data::output(int* m, int size)
 	{
 		fprintf(this->output_ptr, "(%d, %d) ", i, m[i]);
 	}
-	fprintf(ofp, "\n");
+	fprintf(this->output_ptr, "\n");
 	return true;
 }
 

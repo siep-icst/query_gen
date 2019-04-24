@@ -22,9 +22,10 @@ public:
 	bool output();
 	bool output(int* _m, int _size);
 	void flush();
+
     FILE* getOFP() const
     {
-        return this->ofp;
+        return this->output_ptr;
     }
 
 
