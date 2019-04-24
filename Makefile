@@ -15,7 +15,7 @@ $(objdir)Line_query.o $(objdir)IO_data.o
 
 all: run.exe
 
-run.exe: main/run.cpp $(objfile) patterns/Query_patterns.h match/Match.h match/Match.cpp
+run.exe: main/run.cpp $(objfile) patterns/Query_patterns.h 
 	$(CC) $(EXEFLAG) -o run.exe main/run.cpp $(objfile) $(library)
 
 $(objdir)Util.o: util/Util.cpp util/Util.h

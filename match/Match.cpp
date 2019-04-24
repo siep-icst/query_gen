@@ -18,6 +18,7 @@ int Match::query_count = 0;
 
 Match::Match(int queryNodeNum, int queryEgdeNum, int queryNum, Graph* _data)
 {
+    printf("Match initialize\n");
 	this->data = _data;
 	this->qsize = queryNodeNum;
 	this->dsize = _data->vSize();
@@ -112,6 +113,7 @@ Match::isDuplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::vecto
 void 
 Match::match(std::string _query_dir)
 {
+    printf("begin to match\n");
 //    cout<<"check sortEdges: "<<sizeof(sortEdges)<<endl;
 	if(qsize > dsize)
 	{
