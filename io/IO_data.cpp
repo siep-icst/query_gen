@@ -122,7 +122,7 @@ IO_data::flush()
 	fflush(this->output_ptr);
 }
 
-IO_data::~IO()
+IO_data::~IO_data()
 {
 	fclose(this->data_ptr);
 	this->data_ptr = NULL;
