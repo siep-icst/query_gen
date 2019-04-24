@@ -304,7 +304,7 @@ Match::match(std::string _query_dir)
                 {
                     continue;
                 }
-                printf("query found, query count: \n");
+                printf("query found, query count: %d \n",Match::query_count);
                 //output the query graph
                 string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
                 FILE* ofp = fopen(file.c_str(), "w+");
