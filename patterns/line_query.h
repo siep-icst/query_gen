@@ -9,6 +9,7 @@ class Line_query
     public:
     
     Line_query();
+    ~Line_query();
 	Line_query(std::string query_req_path, std::string query_dir);
 
     //to use previous IO class, need to generate corresponding data
