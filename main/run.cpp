@@ -126,7 +126,7 @@ main(int argc, const char * argv[])
 	{
 		run_line_query(query_req_path,query_dir,data_path);
 	}
-	else if(query_pattern=='clique')
+	else if(query_pattern=="clique")
 	{
 		run_clique_query(query_req_path,query_dir,data_path);
 	}
