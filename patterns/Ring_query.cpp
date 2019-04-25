@@ -1,15 +1,15 @@
-#include "Line_query.h"
+#include "Ring_query.h"
 #include<iostream>
 using namespace std;
 
 
-Line_query::Line_query()
+Ring_query::Ring_query()
 {
 	this->query_ptr = NULL;
     this->segreg_line = "============================================================";
 }
 
-Line_query::Line_query(std::string _query_req_path, std::string _query_dir)
+Ring_query::Ring_query(std::string _query_req_path, std::string _query_dir)
 {
 	this->segreg_line = "============================================================";
 	this->query_req_path=_query_req_path;
@@ -18,7 +18,7 @@ Line_query::Line_query(std::string _query_req_path, std::string _query_dir)
     Util::create_dir(_query_dir);
 }
 
-Line_query::~Line_query()
+Ring_query::~Ring_query()
 {
     if(this->query_ptr != NULL)
     {
@@ -29,7 +29,7 @@ Line_query::~Line_query()
 }
 
 bool 
-Line_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_list, std::vector<int>& query_list)
+Ring_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_list, std::vector<int>& query_list)
 {
     //to generate what kind of query
 
