@@ -43,3 +43,12 @@ For example,
 which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
 eg:
 ./run.exe line data/delaunay_prev.txt query_requirement/line_query_request.txt
+
+## clique query
+The query requirements(query info) file will indicate query vertices and query num in each line.
+For example,
+5 3
+6 3
+which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
+eg:
+./run.exe clique data/delaunay_prev.txt query_requirement/clique_query_request.txt

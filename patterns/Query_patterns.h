@@ -2,5 +2,6 @@
 #define _QUERY_PATTERNS_H
 
 #include "Line_query.h"
+#include "Clique_query.h"
 
 #endif
