@@ -11,7 +11,7 @@ library = #-lgcov -coverage
 
 objdir = ./objs/
 objfile = $(objdir)Util.o $(objdir)IO.o $(objdir)Match.o $(objdir)Graph.o \
-$(objdir)Line_query.o $(objdir)IO_data.o
+$(objdir)IO_data.o $(objdir)Line_query.o $(objdir)Clique_query.o
 
 all: run.exe
 
@@ -30,11 +30,16 @@ $(objdir)IO.o: io/IO.cpp io/IO.h
 $(objdir)Match.o: match/Match.cpp match/Match.h
 	$(CC) $(CFLAGS) match/Match.cpp -o $(objdir)Match.o
 
+$(objdir)IO_data.o: io/IO_data.cpp io/IO_data.h
+	$(CC) $(CFLAGS) io/IO_data.cpp -o $(objdir)IO_data.o
+
 $(objdir)Line_query.o: patterns/Line_query.cpp patterns/Line_query.h
 	$(CC) $(CFLAGS) patterns/Line_query.cpp -o $(objdir)Line_query.o
 
-$(objdir)IO_data.o: io/IO_data.cpp io/IO_data.h
-	$(CC) $(CFLAGS) io/IO_data.cpp -o $(objdir)IO_data.o
+$(objdir)Clique_query.o: patterns/Clique_query.cpp patterns/Clique_query.h
+	$(CC) $(CFLAGS) patterns/Clique_query.cpp -o $(objdir)Clique_query.o
+
+
 
 .PHONY: clean dist tarball test sumlines
 
