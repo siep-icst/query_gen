@@ -36,6 +36,7 @@ Clique_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_l
         
         int queryNodeNum;
 		query_req_ifs >> queryNodeNum;
+        printf("queryNodeNum: %d\n",queryNodeNum);
 		if (queryNodeNum <=0) 
         {
 			break;
