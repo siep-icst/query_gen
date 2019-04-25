@@ -1,9 +1,10 @@
 使用方法：
 
 ````
-	./run data queryInfo [result_directory]
-eg:
-	./run.exe delaunay_n13_prev.txt query_requirement/line_query_request.txt
+	./run.exe query_pattern data_path query_requirement_path [result_directory]
+
+	(query_pattern: line, rand)
+
 ``
 其中queryInfo是一个说明查询特点的文件，每行表示一个查询，第一个数字表示查询的节点数目，第二个数字表示边数。以-1结束查询描述文件。
 例如，一个查询文件(test.info)可以包含像下面这样：
@@ -40,3 +41,5 @@ For example,
 5 3
 6 3
 which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
+eg:
+./run.exe line data/delaunay_prev.txt query_requirement/line_query_request.txt

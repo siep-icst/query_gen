@@ -51,9 +51,9 @@ void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 				m.match(_query_dir);
 			}
 			
-			printf("in this data graph, all querys are done\n");
+			
 			delete data_graph;
-			printf("variable data_graph deleted\n");
+			
 		}
 }
 
