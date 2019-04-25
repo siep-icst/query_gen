@@ -18,7 +18,6 @@ int Match::query_count = 0;
 
 Match::Match(int queryNodeNum, int queryEgdeNum, int queryNum, Graph* _data)
 {
-    printf("Match initialize\n");
 	this->data = _data;
 	this->qsize = queryNodeNum;
 	this->dsize = _data->vSize();
