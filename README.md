@@ -51,4 +51,5 @@ For example,
 6 3
 which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
 eg:
-./run.exe clique data/delaunay_prev.txt query_requirement/clique_query_request.txt
+
+	./run.exe clique data/delaunay_prev.txt query_requirement/clique_query_request.txt
