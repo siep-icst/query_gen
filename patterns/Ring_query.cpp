@@ -44,7 +44,7 @@ Line_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_lis
 			break;
 		}
 
-	    int queryEdgeNum = queryNodeNum-1;
+	    int queryEdgeNum = queryNodeNum;
         int queryNum;
         query_req_ifs >> queryNum;
 		node_list.push_back(queryNodeNum);

@@ -104,7 +104,6 @@ void run_ring_query(string _query_req_path,string _query_dir,string _data_path)
 	ring_query.get_req_list(node_list,edge_list,query_list);
 	
 
-
 	int qnum = query_list.size();
 	printf("in query requirement txt, there are %d different requirement\n", qnum);
 
