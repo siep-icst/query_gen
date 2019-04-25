@@ -97,6 +97,47 @@ void run_clique_query(string _query_req_path,string _query_dir, string _data_pat
 	}
 }
 
+void run_ring_query(string _query_req_path,string _query_dir,string _data_path)
+{
+	Ring_query ring_query(_query_req_path,_query_dir);
+		// fill this three list
+	ring_query.get_req_list(node_list,edge_list,query_list);
+	
+
+
+	int qnum = query_list.size();
+	printf("in query requirement txt, there are %d different requirement\n", qnum);
+
+
+	//read data graph
+	Graph* data_graph = NULL;
+	IO_data io_data=IO_data(_data_path);
+	
+	// can read more than one data graph, and random walk on each graph to generate query
+	while(true)
+	{
+		if(!io_data.get_data_graph(data_graph))
+		{
+			break;
+		}
+		cout << "one dataset read done!" << endl;
+		
+		for(int i = 0; i < qnum; ++i)
+		{
+			//initialize
+			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
+			//random walk to find match
+			// generate query and put into this dir
+			m.match(_query_dir);
+		}
+		
+		
+		delete data_graph;
+		
+	}
+}
+
+
 int
 main(int argc, const char * argv[])
 {
@@ -129,6 +170,10 @@ main(int argc, const char * argv[])
 	else if(query_pattern=="clique")
 	{
 		run_clique_query(query_req_path,query_dir,data_path);
+	}
+	else if(query_pattern=="ring")
+	{
+		run_ring_query(query_req_path,query_dir,data_path);
 	}
 
 //	cerr<<"match ended!"<<endl;

@@ -42,7 +42,8 @@ For example,
 6 3
 which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
 eg:
-./run.exe line data/delaunay_prev.txt query_requirement/line_query_request.txt
+
+	./run.exe line data/delaunay_prev.txt query_requirement/line_query_request.txt
 
 ## clique query
 The query requirements(query info) file will indicate query vertices and query num in each line.
@@ -53,3 +54,18 @@ which means we need 3 querys which have 5 vertices and 3 queries which have 6 ve
 eg:
 
 	./run.exe clique data/delaunay_prev.txt query_requirement/clique_query_request.txt
+
+## triangle query
+Triangle is a clique which has 3 vertices.
+Use clique query instead.
+
+## ring query
+Number of query edges is the same of number of query vertices
+The query requirements(query info) file will indicate query vertices and query num in each line.
+For example,
+5 3
+6 3
+which means we need 3 querys which have 5 vertices and 3 queries which have 6 vertices.
+eg:
+
+	./run.exe ring data/delaunay_prev.txt query_requirement/ring_query_requirement.txt

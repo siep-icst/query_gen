@@ -3,5 +3,6 @@
 
 #include "Line_query.h"
 #include "Clique_query.h"
+#include "Ring_query.h"
 
 #endif
