@@ -1,11 +1,11 @@
 使用方法：
 
-````
+
 	./run.exe query_pattern data_path query_requirement_path [result_directory]
 
 	(query_pattern: line, rand)
 
-``
+
 其中queryInfo是一个说明查询特点的文件，每行表示一个查询，第一个数字表示查询的节点数目，第二个数字表示边数。以-1结束查询描述文件。
 例如，一个查询文件(test.info)可以包含像下面这样：
 3 3 10
