@@ -505,6 +505,8 @@ Match::ring_match(std::string _query_dir)
                 int size = vid.size();
                 for (int j = 0; j < size; j ++) 
                 {
+                    if(!(j==0||j==size-1))
+                        continue;
                     for (int i = 0; i < size; i ++) 
                     {
                         if (j == i)
