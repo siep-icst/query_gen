@@ -45,6 +45,7 @@ Clique_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_l
 	    int queryEdgeNum = queryNodeNum*(queryNodeNum-1)/2;
         int queryNum;
         query_req_ifs >> queryNum;
+        printf("queryNodeNum: %d, queryEdgeNum: %d, queryNum: %d\n",queryNodeNum,queryEdgeNum,queryNum);
 		node_list.push_back(queryNodeNum);
 		edge_list.push_back(queryEdgeNum);
         query_list.push_back(queryNum);
