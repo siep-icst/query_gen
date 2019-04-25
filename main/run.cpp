@@ -26,7 +26,7 @@ void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 
 
 		int qnum = query_list.size();
-		
+		printf("in query requirement txt, there are %d different requirement\n", qnum);
 
 
 		//read data graph
@@ -41,9 +41,9 @@ void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 				break;
 			}
 			cout << "one dataset read done!" << endl;
+			
 			for(int i = 0; i < qnum; ++i)
 			{
-				printf("in query requirement txt, there are %d different requirement\n", qnum);
 				//initialize
 				Match m(node_list[i], edge_list[i], query_list[i], data_graph);
 				//random walk to find match
@@ -99,7 +99,6 @@ main(int argc, const char * argv[])
 	//release all and flush cached writes
 	//io.flush();
 
-	printf("end of main function\n");
 	return 0;
 }
 
