@@ -61,7 +61,7 @@ void run_clique_query(string _query_req_path,string _query_dir, string _data_pat
 {
 	Clique_query clique_query(_query_req_path,_query_dir);
 		// fill this three list
-	line_query.get_req_list(node_list,edge_list,query_list);
+	clique_query.get_req_list(node_list,edge_list,query_list);
 	
 
 
