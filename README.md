@@ -35,7 +35,7 @@ However, in a big data graph the graph isomorphism case should be rare because w
 
 
 We consider different query patterns.
-
+## line query
 For line query, we only need to specify how many vertices in the query and do not need to specify the edge number. The query requirements(query info) file will indicate query vertices and query num in each line.
 For example,
 5 3
