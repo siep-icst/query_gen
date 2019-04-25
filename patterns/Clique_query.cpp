@@ -29,7 +29,7 @@ bool
 Clique_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_list, std::vector<int>& query_list)
 {
     //to generate what kind of query
-
+    printf("get_req_list begin\n");
     std::ifstream query_req_ifs(this->query_req_path.c_str());
 	while (true)
 	{
