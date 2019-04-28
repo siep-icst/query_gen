@@ -3,4 +3,3 @@
 objs/*
 *.o
 *.bat
-/query/
