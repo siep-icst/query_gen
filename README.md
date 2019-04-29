@@ -69,3 +69,7 @@ which means we need 3 querys which have 5 vertices and 3 queries which have 6 ve
 eg:
 
 	./run.exe ring data/delaunay_prev.txt query_requirement/ring_query_requirement.txt
+
+##notes
+xxx_new.igraph为符合格式的数据集
+aids_new.igraph有一万个图，而该程序对每个图都按照要求生成数个查询，终止程序即可

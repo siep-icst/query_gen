@@ -11,8 +11,8 @@
 
 using namespace std;
 
-#define MAXSEARCHTIME 10000
-#define MAXSEARCHTIME2 10000
+#define MAXSEARCHTIME 100000
+#define MAXSEARCHTIME2 100000
 
 int Match::query_count = 0;
 
