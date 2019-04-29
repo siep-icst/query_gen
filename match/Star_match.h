@@ -15,6 +15,7 @@ public:
     Star_match(int _node_num, int _edge_num, int _query_req_num, Graph* _data_graph);
     ~Star_match();
     void match(std::string _query_dir);
+    bool is_duplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::vector<std::pair<int,int>*>& edges, std::vector<int>& elabel);
 
 private:
     int query_req_num;

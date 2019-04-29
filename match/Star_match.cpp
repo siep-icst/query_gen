@@ -29,8 +29,89 @@ Star_match::~Star_match()
 
 }
 
+int myFind(std::vector<Neighbor>& list,  int value) 
+{
+    //find the neighbor with id = value, the label of this edge
+	vector<Neighbor>::iterator it;
+	int elb = -1;
+	if (list.size() == 0)
+		return -1;
+	for (it = list.begin(); it != list.end(); it ++) {
+		if (it->vid == value) 
+        {
+			elb = it->elb;
+			break;
+		}
+	}
+	return elb;
+}
+
+struct sortEdges
+{
+	int src;
+	int dst;
+	int label;
+	bool operator < (const sortEdges& e)const
+    {
+		return src < e.src || (src == e.src && dst < e.dst);
+	}
+};
+
+bool 
+Match::is_duplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::vector<std::pair<int,int>*>& edges, std::vector<int>& elabel)
+{
+    //qsize: vertex count of this query
+    int* record = new int[qsize+3*edgeNum];
+    for(int i = 0; i < qsize; ++i)
+    {
+        record[i] = vlabel[i];
+    }
+    for (int i = 0, pos = qsize; i < edges.size(); i ++, pos+=3) 
+    {
+        record[pos] = edges[i]->first;
+        record[pos+1] = edges[i]->second;
+        record[pos+2] = elabel[i];
+    }
+	//cout  << "sizeof(struct) is " << sizeof(sortEdges) << endl;
+    //QUERY: no alignment in sortEdges? 12 bytes instead of 16 bytes?
+    //sort edges by src and dst value
+	sort((sortEdges*)(record+qsize),(sortEdges*)(record+qsize+3*edgeNum));
+	bool dupl = true;
+	if (query_set.size() == 0) 
+    {
+		query_set.push_back(record);
+//		cout<<"a result found"<<endl;
+		return false;
+	}
+	for (int r = 0; r < query_set.size(); r ++) 
+    {
+		dupl = true;
+		for (int i = 0; i < qsize+3*edgeNum; i++) 
+        {
+			if(record[i] != query_set[r][i]) 
+            {
+				dupl = false;
+				break;
+			}
+		}
+		if(dupl == true)
+			break;
+	}
+    // whether find a query which meets the requirement of the query parameter
+	if (dupl) 
+    {
+		delete [] record;
+		return true;
+	}
+//    cout<<"a result found"<<endl;
+    query_set.push_back(record);
+    return false;
+}
+
 void Star_match::match(std::string _query_dir)
 {
+    int try_cnt=0;
+    int max_try_cnt=10000;
     int data_size=this->data_ptr.vSize();
     int query_size=this->sate_num+1;
     if(query_size>data_size)
@@ -59,12 +140,106 @@ void Star_match::match(std::string _query_dir)
         return;
     }
 
+
     for(int tmp_query_cnt=0;tmp_query_cnt<this->query_req_num;++tmp_query_cnt)
     {
         std::vector<int> vid_list;
         std::vector<int> vlabel_list;
         std::vector<pair<int,int>*> edge_list;
-        std::vector<int> elabel;
+        std::vector<int> elabel_list;
+        int core_vpos=get_random_int(core_candidate_num);
+        int core_vid=core_candidate[core_vpos];
+        //core selected
+        vid_list.push_back(core_vid);
+        int core_label=this->data_ptr->vertices[core_vid].label;
+        vlabel_list.push_back(core_label);
+        int core_degree=this->data_ptr->vertices[core_vid].degree;
+        int core_indegree=this->data_ptr->vertices[core_vid].indegree;
+        int core_outdegree=this->data_ptr->vertices[core_vid].outdegree;
+        bool* rand_neighbor_used=new bool[core_degree];
+        for(int i=0;i<core_degree;++i)
+        {
+            rand_neighbor_used[i]=false;
+        }
+        for(int sate_cnt=0;sate_cnt<this->sate_num;++sate_cnt)
+        {
+            int rand_neighbor=get_random_int(core_degree);
+            if(rand_neighbor_used[rand_neighbor])
+            {
+                rand_neighbor=(rand_neighbor+1)%core_degree;
+            }
+
+            if(rand_neighbor<core_indegree)
+            {
+                Neighbor tmp_neighbor=this->data_ptr->vertices[core_vid].in[rand_neighbor];
+                int neighbor_vid=tmp_neighbor.vid;
+                int edge_label=tmp_neighbor.elb;
+                vid_list.push_back(neighbor_vid);
+                vlabel_list.push_back(this->data_ptr->vertices[neighbor_vid].label);
+                elabel_list.push_back(edge_label);
+                pair<int,int>* edge_pair = new pair<int,int>(neighbor_vid,core_vid);
+                edge_list.push_back(edge_pair);
+            }
+            else
+            {
+                // out edge
+                rand_neighbor=rand_neighbor-core_indegree;
+                Neighbor tmp_neighbor=this->data_ptr->vertices[core_vid].out[rand_neighbor];
+                int neighbor_vid=tmp_neighbor.vid;
+                int edge_label=tmp_neighbor.elb;
+                vid_list.push_back(neighbor_vid);
+                vlabel_list.push_back(this->data_ptr->vertices[neighbor_vid].label);
+                elabel_list.push_back(edge_label);
+                pair<int,int>* edge_pair = new pair<int,int>(core_vid,neighbor_vid);
+                edge_list.push_back(edge_pair);
+            }
+        }
+        delete rand_neighbor_used;
+        if(is_duplicate(query_set,vlabel_list,edge_list,elabel_list))
+        {
+            ++try_cnt;
+            if(try_cnt>=max_try_cnt)
+            {
+                printf("%d times duplicate, no more trying for this query requirement\n");
+                return;
+            }
+            --tmp_query_cnt;
+            continue;
+        }
+        // get a query
+        // write a query file
+        
+        string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
+        FILE* ofp = fopen(file.c_str(), "w+");
+        fprintf(ofp, "t # %d\n", Match::query_count);
+        query_count++;
+        int maxVLabel = 0, maxELabel = 0;
+        for (int i = 0; i < qsize; i ++)
+            if (vlabel[i] > maxVLabel)
+                maxVLabel = vlabel[i];
+        for (int i = 0; i < edge.size(); i ++)
+            if (elabel[i] > maxELabel)
+                maxELabel = elabel[i];
+        fprintf(ofp, "%d %d %d %d\n", qsize, edgeNum, maxVLabel, maxELabel);
+        for (int i = 0; i < qsize; i ++)
+        {
+            fprintf(ofp, "v %d %d\n", i, vlabel[i]);
+        }
+        for (int i = 0; i < edge.size(); i ++) 
+        {
+            fprintf(ofp, "e %d %d %d\n", edge[i]->first, edge[i]->second, elabel[i]);
+        }
+
+        fprintf(ofp, "t # -1\n");
+        fclose(ofp);
+
+        for (int i = 0; i < edge.size(); i ++)
+            delete  edge[i];
+        edge.clear();
+
+
+
+
 
 
     }
@@ -78,7 +253,6 @@ void Star_match::match(std::string _query_dir)
 
 
 
-    string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
-    FILE* ofp = fopen(file.c_str(), "w+");
+
 }
 
