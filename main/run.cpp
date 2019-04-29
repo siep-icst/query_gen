@@ -6,6 +6,7 @@
 #include "../io/IO_data.h"
 #include "../graph/Graph.h"
 #include "../match/Match.h"
+#include "../match/Star_match.h"
 #include "../patterns/Query_patterns.h"
 #include <iostream>
 
@@ -56,6 +57,8 @@ void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 		
 	}
 }
+
+
 
 void run_clique_query(string _query_req_path,string _query_dir, string _data_path)
 {
@@ -136,6 +139,42 @@ void run_ring_query(string _query_req_path,string _query_dir,string _data_path)
 	}
 }
 
+void run_star_query(string _query_req_path,string _query_dir,string _data_path)
+{
+	Star_query star_query(_query_req_path,_query_dir);
+		// fill this three list
+	star_query.get_req_list(node_list,edge_list,query_list);
+	
+
+
+	int qnum = query_list.size();
+	printf("in query requirement txt, there are %d different requirement\n", qnum);
+
+
+	//read data graph
+	Graph* data_graph = NULL;
+	IO_data io_data=IO_data(_data_path);
+	
+	// can read more than one data graph, and random walk on each graph to generate query
+	while(true)
+	{
+		if(!io_data.get_data_graph(data_graph))
+		{
+			break;
+		}
+		cout << "one dataset read done!" << endl;
+		
+		for(int i = 0; i < qnum; ++i)
+		{
+			Star_match m(node_list[i], edge_list[i], query_list[i], data_graph);
+			m.match(_query_dir);
+		}
+		
+		
+		delete data_graph;
+		
+	}
+}
 
 int
 main(int argc, const char * argv[])

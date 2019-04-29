@@ -36,13 +36,12 @@ public:
 	//NOTICE:VID and EID is just used in this single graph
 	std::vector<Neighbor> in;
 	std::vector<Neighbor> out;
-	Vertex()
-	{
-		label = -1;
-	}
-	Vertex(LABEL lb):label(lb)
-	{
-	}
+	int indegree;
+	int outdegree;
+	int degree;
+	Vertex();
+	Vertex(LABEL lb);
+	
 };
 
 class Graph

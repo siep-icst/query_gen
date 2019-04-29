@@ -4,5 +4,6 @@
 #include "Line_query.h"
 #include "Clique_query.h"
 #include "Ring_query.h"
+#include "Star_query.h"
 
 #endif
