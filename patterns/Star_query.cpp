@@ -39,7 +39,7 @@ Star_query::get_req_list(std::vector<int>& node_list, std::vector<int>& edge_lis
         //number of vertices surrouding this vertex
         int sate_num;
 		query_req_ifs >> sate_num;
-		if (queryNodeNum <=0) 
+		if (sate_num <=0) 
         {
 			break;
 		}

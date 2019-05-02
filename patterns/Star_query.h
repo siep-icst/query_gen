@@ -26,6 +26,6 @@ class Star_query
 	//output file pointer
 	FILE* query_ptr;
     std::string query_dir;
-}
+};
 
 #endif
