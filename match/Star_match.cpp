@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int Star_match::query_count=0;
+
 int get_random_int(int _range)
 {
     srand((unsigned)time(NULL)); 
@@ -29,7 +31,7 @@ Star_match::~Star_match()
 
 }
 
-int myFind(std::vector<Neighbor>& list,  int value) 
+int my_find(std::vector<Neighbor>& list,  int value) 
 {
     //find the neighbor with id = value, the label of this edge
 	vector<Neighbor>::iterator it;
@@ -204,7 +206,7 @@ void Star_match::match(std::string _query_dir)
             ++try_cnt;
             if(try_cnt>=max_try_cnt)
             {
-                printf("%d times duplicate, no more trying for this query requirement\n");
+                printf("%d times duplicate, no more trying for this query requirement\n",max_try_cnt);
                 return;
             }
             --tmp_query_cnt;
