@@ -58,10 +58,12 @@ struct sortEdges
 };
 
 bool 
-Match::is_duplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::vector<std::pair<int,int>*>& edges, std::vector<int>& elabel)
+Star_match::is_duplicate(std::vector<int*>& _query_set, std::vector<int>& _vlabel_list, std::vector<std::pair<int,int>*>& _edge_list, std::vector<int>& _elabel_list)
 {
     //qsize: vertex count of this query
-    int* record = new int[qsize+3*edgeNum];
+    int query_v_num=_vlabel_list.size();
+    int query_e_num=_edge_list.size();
+    int* record = new int[query_v_num+3*query_e_num];
     for(int i = 0; i < qsize; ++i)
     {
         record[i] = vlabel[i];
@@ -112,7 +114,7 @@ void Star_match::match(std::string _query_dir)
 {
     int try_cnt=0;
     int max_try_cnt=10000;
-    int data_size=this->data_ptr.vSize();
+    int data_size=this->data_ptr->vSize();
     int query_size=this->sate_num+1;
     if(query_size>data_size)
     {
@@ -123,7 +125,7 @@ void Star_match::match(std::string _query_dir)
     std::vector<int*> query_set;
 
     //candidate id for core vertex
-    std::vector<int> core_candidate;
+    std::vector<int> core_candidates;
     //minimum degree of core vertex
     int min_degree=this->sate_num;
     
@@ -131,7 +133,7 @@ void Star_match::match(std::string _query_dir)
     {
         int tmp_v_degree=this->data_ptr->vertices[v_id].degree;
         if(tmp_v_degree>=min_degree)
-            core_candidate.push_back(v_id);
+            core_candidates.push_back(v_id);
     }
     int core_candidate_num=core_candidates.size();
     if(core_candidate_num==0)
@@ -148,7 +150,7 @@ void Star_match::match(std::string _query_dir)
         std::vector<pair<int,int>*> edge_list;
         std::vector<int> elabel_list;
         int core_vpos=get_random_int(core_candidate_num);
-        int core_vid=core_candidate[core_vpos];
+        int core_vid=core_candidates[core_vpos];
         //core selected
         vid_list.push_back(core_vid);
         int core_label=this->data_ptr->vertices[core_vid].label;
@@ -239,7 +241,7 @@ void Star_match::match(std::string _query_dir)
 
         for (int i = 0; i < query_e_num; i ++)
             delete  edge_list[i];
-        edge.clear();
+        edge_list.clear();
 
 
 
