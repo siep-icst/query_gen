@@ -182,7 +182,7 @@ void Star_match::match(std::string _query_dir)
                 vlabel_list.push_back(this->data_ptr->vertices[neighbor_vid].label);
                 elabel_list.push_back(edge_label);
                 int tmp_v_num=vid_list.size();
-                pair<int,int>* edge_pair = new pair<int,int>(tmp_v_num,0);
+                pair<int,int>* edge_pair = new pair<int,int>(tmp_v_num-1,0);
                 edge_list.push_back(edge_pair);
             }
             else
