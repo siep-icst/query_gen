@@ -88,7 +88,7 @@ Star_match::is_duplicate(std::vector<int*>& _query_set, std::vector<int>& _vlabe
 	for (int r = 0; r < _query_set.size(); r ++) 
     {
 		dupl = true;
-		for (int i = 0; i < qsize+3*edgeNum; i++) 
+		for (int i = 0; i < query_v_num+3*query_e_num; i++) 
         {
 			if(record[i] != _query_set[r][i]) 
             {
