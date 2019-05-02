@@ -11,14 +11,14 @@
 using namespace std;
 
 
-Graph::Vertex()
+Vertex::Vertex()
 {
 	label = -1;
 	indegree=0;
 	outdegree=0;
 	degree=0;
 }
-Graph::Vertex(LABEL lb):label(lb)
+Vertex::Vertex(LABEL lb):label(lb)
 {
 	indegree=0;
 	outdegree=0;
