@@ -4,4 +4,4 @@ then
 fi
 make clean
 make
-./run.exe ring data/delaunay_prev.txt query_requirement/ring_query_requirement.txt
+./run.exe star dataset/yeast_new.igraph query_requirement/star_query_requirement.txt yeast_star_query

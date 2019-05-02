@@ -10,8 +10,9 @@ EXEFLAG = -O6 #-fprofile-arcs -ftest-coverage -coverage #-pg #-O2
 library = #-lgcov -coverage
 
 objdir = ./objs/
-objfile = $(objdir)Util.o $(objdir)IO.o $(objdir)Match.o $(objdir)Graph.o \
-$(objdir)IO_data.o $(objdir)Line_query.o $(objdir)Clique_query.o $(objdir)Ring_query.o
+objfile = $(objdir)Util.o $(objdir)IO.o $(objdir)Match.o $(objdir)Star_match.o $(objdir)Graph.o \
+$(objdir)IO_data.o $(objdir)Line_query.o $(objdir)Clique_query.o $(objdir)Ring_query.o \
+$(objdir)Star_query.o
 
 all: run.exe
 
@@ -30,6 +31,9 @@ $(objdir)IO.o: io/IO.cpp io/IO.h
 $(objdir)Match.o: match/Match.cpp match/Match.h
 	$(CC) $(CFLAGS) match/Match.cpp -o $(objdir)Match.o
 
+$(objdir)Star_match.o: match/Star_match.cpp match/Star_match.h
+	$(CC) $(CFLAGS) match/Star_match.cpp -o $(objdir)Star_match.o
+
 $(objdir)IO_data.o: io/IO_data.cpp io/IO_data.h
 	$(CC) $(CFLAGS) io/IO_data.cpp -o $(objdir)IO_data.o
 
@@ -41,6 +45,9 @@ $(objdir)Clique_query.o: patterns/Clique_query.cpp patterns/Clique_query.h
 
 $(objdir)Ring_query.o: patterns/Ring_query.cpp patterns/Ring_query.h
 	$(CC) $(CFLAGS) patterns/Ring_query.cpp -o $(objdir)Ring_query.o
+
+$(objdir)Star_query.o: patterns/Star_query.cpp patterns/Star_query.h
+	$(CC) $(CFLAGS) patterns/Star_query.cpp -o $(objdir)Star_query.o
 
 
 .PHONY: clean dist tarball test sumlines
