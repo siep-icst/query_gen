@@ -213,6 +213,10 @@ main(int argc, const char * argv[])
 	{
 		run_ring_query(query_req_path,query_dir,data_path);
 	}
+	else if(query_pattern=="star")
+	{
+		run_star_query(query_req_path,query_dir,data_path);
+	}
 
 //	cerr<<"match ended!"<<endl;
 //	long t3 = Util::get_cur_time();
