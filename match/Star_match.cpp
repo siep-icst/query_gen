@@ -64,33 +64,33 @@ Star_match::is_duplicate(std::vector<int*>& _query_set, std::vector<int>& _vlabe
     int query_v_num=_vlabel_list.size();
     int query_e_num=_edge_list.size();
     int* record = new int[query_v_num+3*query_e_num];
-    for(int i = 0; i < qsize; ++i)
+    for(int i = 0; i < query_v_num; ++i)
     {
-        record[i] = vlabel[i];
+        record[i] = _vlabel_list[i];
     }
-    for (int i = 0, pos = qsize; i < edges.size(); i ++, pos+=3) 
+    for (int i = 0, pos = query_v_num; i < query_e_num; i ++, pos+=3) 
     {
-        record[pos] = edges[i]->first;
-        record[pos+1] = edges[i]->second;
-        record[pos+2] = elabel[i];
+        record[pos] = _edge_list[i]->first;
+        record[pos+1] = _edge_list[i]->second;
+        record[pos+2] = _elabel_list[i];
     }
 	//cout  << "sizeof(struct) is " << sizeof(sortEdges) << endl;
     //QUERY: no alignment in sortEdges? 12 bytes instead of 16 bytes?
     //sort edges by src and dst value
-	sort((sortEdges*)(record+qsize),(sortEdges*)(record+qsize+3*edgeNum));
+	sort((sortEdges*)(record+query_v_num),(sortEdges*)(record+query_v_num+3*query_e_num));
 	bool dupl = true;
-	if (query_set.size() == 0) 
+	if (_query_set.size() == 0) 
     {
-		query_set.push_back(record);
+		_query_set.push_back(record);
 //		cout<<"a result found"<<endl;
 		return false;
 	}
-	for (int r = 0; r < query_set.size(); r ++) 
+	for (int r = 0; r < _query_set.size(); r ++) 
     {
 		dupl = true;
 		for (int i = 0; i < qsize+3*edgeNum; i++) 
         {
-			if(record[i] != query_set[r][i]) 
+			if(record[i] != _query_set[r][i]) 
             {
 				dupl = false;
 				break;
@@ -106,7 +106,7 @@ Star_match::is_duplicate(std::vector<int*>& _query_set, std::vector<int>& _vlabe
 		return true;
 	}
 //    cout<<"a result found"<<endl;
-    query_set.push_back(record);
+    _query_set.push_back(record);
     return false;
 }
 
