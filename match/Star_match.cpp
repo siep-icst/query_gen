@@ -177,7 +177,8 @@ void Star_match::match(std::string _query_dir)
                 vid_list.push_back(neighbor_vid);
                 vlabel_list.push_back(this->data_ptr->vertices[neighbor_vid].label);
                 elabel_list.push_back(edge_label);
-                pair<int,int>* edge_pair = new pair<int,int>(neighbor_vid,core_vid);
+                int tmp_v_num=vid_list.size();
+                pair<int,int>* edge_pair = new pair<int,int>(tmp_v_num,0);
                 edge_list.push_back(edge_pair);
             }
             else
@@ -190,7 +191,8 @@ void Star_match::match(std::string _query_dir)
                 vid_list.push_back(neighbor_vid);
                 vlabel_list.push_back(this->data_ptr->vertices[neighbor_vid].label);
                 elabel_list.push_back(edge_label);
-                pair<int,int>* edge_pair = new pair<int,int>(core_vid,neighbor_vid);
+                int tmp_v_num=vid_list.size();
+                pair<int,int>* edge_pair = new pair<int,int>(0,tmp_v_num-1);
                 edge_list.push_back(edge_pair);
             }
         }
@@ -209,32 +211,34 @@ void Star_match::match(std::string _query_dir)
         // get a query
         // write a query file
         
-        string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
-        FILE* ofp = fopen(file.c_str(), "w+");
-        fprintf(ofp, "t # %d\n", Match::query_count);
-        query_count++;
-        int maxVLabel = 0, maxELabel = 0;
-        for (int i = 0; i < qsize; i ++)
-            if (vlabel[i] > maxVLabel)
-                maxVLabel = vlabel[i];
-        for (int i = 0; i < edge.size(); i ++)
-            if (elabel[i] > maxELabel)
-                maxELabel = elabel[i];
-        fprintf(ofp, "%d %d %d %d\n", qsize, edgeNum, maxVLabel, maxELabel);
-        for (int i = 0; i < qsize; i ++)
+        string output_path = _query_dir + "/q" + Util::int2string(Star_match::query_count) + ".g";
+        FILE* ofp = fopen(output_path.c_str(), "w+");
+        fprintf(ofp, "t # %d\n", Star_match::query_count);
+        Star_match::query_count++;
+        int max_v_label = 0, max_e_label = 0;
+        int query_v_num=vid_list.size();
+        int query_e_num=edge_list.size();
+        for (int i = 0; i < query_v_num; i ++)
+            if (vlabel_list[i] > max_v_label)
+                max_v_label = vlabel_list[i];
+        for (int i = 0; i < query_e_num; i ++)
+            if (elabel_list[i] > max_e_label)
+                max_e_label = elabel_list[i];
+        fprintf(ofp, "%d %d %d %d\n", query_v_num, query_e_num, max_v_label, max_e_label);
+        for (int i = 0; i < query_v_num; i ++)
         {
-            fprintf(ofp, "v %d %d\n", i, vlabel[i]);
+            fprintf(ofp, "v %d %d\n", i, vlabel_list[i]);
         }
-        for (int i = 0; i < edge.size(); i ++) 
+        for (int i = 0; i < query_e_num; i ++) 
         {
-            fprintf(ofp, "e %d %d %d\n", edge[i]->first, edge[i]->second, elabel[i]);
+            fprintf(ofp, "e %d %d %d\n", edge_list[i]->first, edge_list[i]->second, elabel_list[i]);
         }
 
         fprintf(ofp, "t # -1\n");
         fclose(ofp);
 
-        for (int i = 0; i < edge.size(); i ++)
-            delete  edge[i];
+        for (int i = 0; i < query_e_num; i ++)
+            delete  edge_list[i];
         edge.clear();
 
 

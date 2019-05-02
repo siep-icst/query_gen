@@ -37,7 +37,8 @@ int myFind(std::vector<Neighbor>& list,  int value)
 	int elb = -1;
 	if (list.size() == 0)
 		return -1;
-	for (it = list.begin(); it != list.end(); it ++) {
+	for (it = list.begin(); it != list.end(); it ++) 
+    {
 		if (it->vid == value) 
         {
 			elb = it->elb;
