@@ -129,10 +129,10 @@ void run_ring_query(string _query_req_path,string _query_dir,string _data_path)
 		for(int i = 0; i < qnum; ++i)
 		{
 			//initialize
-			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
+			Ring_match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
 			// generate query and put into this dir
-			m.ring_match(_query_dir);
+			m.match(_query_dir);
 		}
 		
 		

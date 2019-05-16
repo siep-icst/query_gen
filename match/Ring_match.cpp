@@ -23,7 +23,7 @@ Ring_match::~Ring_match()
 
 }
 
-int myFind_in_Ring(std::vector<Neighbor>& list,  int value) 
+int Ring_match::myFind_in_Ring(std::vector<Neighbor>& list,  int value) 
 {
     //find the neighbor with id = value, the label of this edge
 	vector<Neighbor>::iterator it;
@@ -39,6 +39,23 @@ int myFind_in_Ring(std::vector<Neighbor>& list,  int value)
 		}
 	}
 	return elb;
+}
+
+int Ring_match::find_pos_in_nei_list(std::vector<Neighbor>& list,int id)
+{
+    vector<Neighbor>::iterator it;
+	int pos = -1;
+	if (list.size() == 0)
+		return -1;
+	for (it = list.begin(); it != list.end(); it ++) 
+    {
+		if (it->vid == value) 
+        {
+			pos=it - list.begin();
+			break;
+		}
+	}
+	return pos;
 }
 
 struct sortEdges
@@ -301,13 +318,40 @@ Ring_match::match(std::string _query_dir)
             if (queryFound) 
             {
                 int remainEdgeNum = edgeNum + 1 - qsize;
-                if(remainEdgeNum!=0)
+                if(remainEdgeNum!=1)
                 {
                     //not a ring query
-                    cerr<<"not a line query"<<endl;
+                    cerr<<"not a ring query"<<endl;
                 }
                 //cout << "the remainEdge number is " << remainEdgeNum  << endl;
+                int head_id=vid[head_pos];
+                int tail_id=vid[tail_pos];
+                Vertex* head_vertex_ptr=&(this->data->vertices[head_id]);
+                int tail_pos_in_nei_list=this->find_pos_in_nei_list(head_vertex_ptr->in,tail_id);
+                if(tail_pos_in_nei_list>=0)
+                {
+                    // int tail_label=data->vertices[tail_id].label;
+                    pair<int,int> * tmpPairPtr = new pair<int,int>(tail_pos,head_pos);
+                    edge.push_back(tmpPairPtr);
 
+                    
+                    elabel.push_back(head_vertex_ptr->in[tail_pos_in_nei_list].elb);
+                }
+                else if(tail_pos_in_nei_list<0)
+                {
+                    // try out edge
+                    tail_pos_in_nei_list=this->find_pos_in_nei_list(head_vertex_ptr->out,tail_id);
+                    if(tail_pos_in_nei_list<0)
+                    {
+                        queryFound=false;
+                        continue;
+                    }
+                    pair<int,int> * tmpPairPtr = new pair<int,int>(head_pos,tail_pos);
+                    edge.push_back(tmpPairPtr);
+
+                    
+                    elabel.push_back(head_vertex_ptr->out[tail_pos_in_nei_list].elb);
+                }
             }
 
             if (queryFound) 

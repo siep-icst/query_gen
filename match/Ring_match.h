@@ -23,8 +23,10 @@ private:
     int queryNum;    //generate how many queries in this file
 
     bool isDuplicate(std::vector<int*>&, std::vector<int>&, std::vector<std::pair<int,int>*>&, std::vector<int>&);
-    
+    int myFind_in_Ring(std::vector<Neighbor>& list, int value);
+
     int get_start_pos(int _head_pos,int _tail_pos);
+    int find_pos_in_nei_list(std::vector<Neighbor>& list,int id);
 };
 
 #endif
