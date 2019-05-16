@@ -325,8 +325,8 @@ Line_match::match(std::string _query_dir)
                 {
                     fprintf(ofp, "v %d %d\n", i, vlabel[i]);
                 }
-
-                printf(" edge num in this query: %d\n",edge.size());
+                printf(" vid list size in this query: %d\n",vid.size());
+                printf(" edge list size in this query: %d\n",edge.size());
 
                 for (int i = 0; i < edge.size(); i ++) 
                 {
