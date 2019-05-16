@@ -124,6 +124,19 @@ Line_match::isDuplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::
         
 // }
 
+int Line_match::get_start_pos(int _head_pos,int _tail_pos)
+{
+    srand((unsigned)time(NULL)); 
+    int flag=rand()%2;
+    if(flag==0)
+    {
+        return _head_pos;
+    }
+    else
+    {
+        return _tail_pos;
+    }
+}
 
 
 void 
@@ -149,17 +162,19 @@ Line_match::match(std::string _query_dir)
         //NOTICE: the searching is based on random rather than dfs, which is not strictly in random
         int t;
         // find one query
+        bool queryFound=false;
         for (t = 0; t < MAXSEARCHTIME; t ++) 
         {
             
-            bool queryFound = true;
+
             std::vector<int> vid;
             std::vector<int> vlabel;
             std::vector<pair<int,int>*> edge;
             std::vector<int> elabel;
             int head_pos=-1;
             int tail_pos=-1;
-            for (int i = 0; i < qsize; i ++)
+            int i;
+            for (i = 0; i < qsize; i ++)
             {
                 // one vertex at a time
 
@@ -173,29 +188,23 @@ Line_match::match(std::string _query_dir)
                     tail_pos=0;
                     continue;
                 }
+
 				bool nodeAdded = false;
                     
-                for (int t2 = 0; t2 < 2; t2 ++) 
+                for (int t2 = 0; t2 <MAXSEARCHTIME2; t2 ++) 
                 {
                     // search from head or tail
-                    bool queryFound2 = true;
+                    // bool queryFound2 = true;
                     //random select a vertex in the possible vertex list
 
                     
-                    int randForStartId;
-                    if(t2==0)
-                    {
-                        randForStartId=head_pos;
-                    }
-                    else
-                    {
-                        randForStartId=tail_pos;
-                    }
+                    int rand_start_pos=this->get_start_pos(head_pos,tail_pos);
+
                     
 
                     //random select a known node to expand
 				 	//printf("vid size is %d, randForStartId is %d\n",vid.size(),randForStartId);
-                    int startId = vid[randForStartId];
+                    int startId = vid[rand_start_pos];
                     //in degree
                     int vertexInSize = data->vertices[startId].in.size();
                     int vertexOutSize = data->vertices[startId].out.size();
@@ -213,18 +222,22 @@ Line_match::match(std::string _query_dir)
                         int randPosInNeibList = rand()%vertexInSize;
 			
                         nextId = data->vertices[startId].in[randPosInNeibList].vid;
+                        bool inner_ring=false;
                         for (int c = 0; c < i; c ++) 
                         {
                             if (nextId == vid[c]) 
                             {
                                 //query contains a partial ring
-                                queryFound2 = false;
+                                inner_ring=true;
                                 break;
                             }
                         }
-                        if (!queryFound2)
+                        if(inner_ring==true)
+                        {
                             continue;
-						nodeAdded = true;
+                        }
+
+						
                         vid.push_back(nextId);
                         vlabel.push_back(data->vertices[nextId].label);
                         // the two ids are id in the vector"vid"
@@ -239,6 +252,8 @@ Line_match::match(std::string _query_dir)
                         {
                             tail_pos=i;
                         }
+                        nodeAdded=true;
+                        break;
                     }
                     else 
                     {
@@ -248,24 +263,28 @@ Line_match::match(std::string _query_dir)
 							continue;
                         int randPosOutNeibList = rand()%vertexOutSize;
                         nextId = data->vertices[startId].out[randPosOutNeibList].vid;
+                        bool inner_ring=false;
                         for (int c = 0; c < i; c ++) 
                         {
                             if (nextId == vid[c]) 
                             {
-                                // a ring
-                                queryFound2 = false;
+                                //query contains a partial ring
+                                inner_ring=true;
                                 break;
                             }
                         }
-                        if (!queryFound2)
+                        if(inner_ring==true)
+                        {
                             continue;
-						nodeAdded = true;
+                        }
+
+						
                         vid.push_back(nextId);
                         vlabel.push_back(data->vertices[nextId].label);
                         pair<int,int> * tmpPairPtr = new pair<int,int>(randForStartId,i);
                         edge.push_back(tmpPairPtr);
                         elabel.push_back(data->vertices[startId].out[randPosOutNeibList].elb);
-                                                if(randForStartId==head_pos)
+                        if(randForStartId==head_pos)
                         {
                             head_pos=i;
                         }
@@ -273,20 +292,30 @@ Line_match::match(std::string _query_dir)
                         {
                             tail_pos=i;
                         }
-                    }
-                    if (queryFound2)
+                        nodeAdded=true;
                         break;
-                    if (t2 == 1)
-                        queryFound = false;
+                    }
+
                 }
-                if (!queryFound) 
-                    break;
+                // if (!queryFound) 
+                //     break;
 				if (!nodeAdded)
+                {
+                    queryFound=false;
 					break;
+                }
             }
             //cout << "minimum graph find!" << endl;
 
+            if(i==qsize)
+            {
+                queryFound=true;
+            }
 
+            // if(queryFound==false)
+            // {
+            //     continue;
+            // }
 
             if (queryFound) 
             {

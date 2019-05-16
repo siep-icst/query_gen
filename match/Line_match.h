@@ -25,6 +25,7 @@ private:
     bool isDuplicate(std::vector<int*>&, std::vector<int>&, std::vector<std::pair<int,int>*>&, std::vector<int>&);
 	// int get_RandStartId(int _tmp_query_len);
 	// int get_LineStartId(int _tmp_query_len);
+    int get_start_pos(int _head_pos,int _tail_pos);
 };
 
 #endif
