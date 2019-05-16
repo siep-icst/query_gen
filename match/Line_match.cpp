@@ -147,17 +147,22 @@ Line_match::match(std::string _query_dir)
         printf("aim to get %d-vertices query\n",qsize);
         srand((unsigned)time(NULL)); 
         //NOTICE: the searching is based on random rather than dfs, which is not strictly in random
-        for (int t = 0; t < MAXSEARCHTIME; t ++) 
+        int t;
+        // find one query
+        for (t = 0; t < MAXSEARCHTIME; t ++) 
         {
+            
             bool queryFound = true;
             std::vector<int> vid;
             std::vector<int> vlabel;
             std::vector<pair<int,int>*> edge;
             std::vector<int> elabel;
+            int head_pos=-1;
+            int tail_pos=-1;
             for (int i = 0; i < qsize; i ++)
             {
-                int head_pos=-1;
-                int tail_pos=-1;
+                // one vertex at a time
+
                 //random select a mapping of the first query node
                 if (i == 0) 
                 {
