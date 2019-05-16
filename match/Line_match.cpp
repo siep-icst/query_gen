@@ -23,7 +23,7 @@ Line_match::~Line_match()
 
 }
 
-int myFind(std::vector<Neighbor>& list,  int value) 
+int myFind_in_Line(std::vector<Neighbor>& list,  int value) 
 {
     //find the neighbor with id = value, the label of this edge
 	vector<Neighbor>::iterator it;
@@ -269,19 +269,19 @@ Line_match::match(std::string _query_dir)
                         //cout << "iID is " << iID << ", jID is " << jID << endl;
                         bool findInList = false;
 //						printf("the in size is %d\n",data->vertices[iID].in.size());
-                        if (myFind(data->vertices[iID].in, jID) != -1) 
+                        if (myFind_in_Line(data->vertices[iID].in, jID) != -1) 
                         {
                             findInList = true;
                             src = j;
                             dst = i;
-                            elb = myFind(data->vertices[iID].in, jID);
+                            elb = myFind_in_Line(data->vertices[iID].in, jID);
                         } 
-                        else if (myFind(data->vertices[iID].out, jID) != -1)
+                        else if (myFind_in_Line(data->vertices[iID].out, jID) != -1)
                         {
                             findInList = true;
                             src = i;
                             dst = j;
-                            elb = myFind(data->vertices[iID].out, jID);
+                            elb = myFind_in_Line(data->vertices[iID].out, jID);
                         }
                         //if (findInList) cout << "	find an edge!" << endl;
                         if (!findInList) 
