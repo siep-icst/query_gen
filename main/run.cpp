@@ -7,6 +7,7 @@
 #include "../graph/Graph.h"
 #include "../match/Match.h"
 #include "../match/Star_match.h"
+#include "../match/Line_match.h"
 #include "../patterns/Query_patterns.h"
 #include <iostream>
 
@@ -46,10 +47,10 @@ void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 		for(int i = 0; i < qnum; ++i)
 		{
 			//initialize
-			Match m(node_list[i], edge_list[i], query_list[i], data_graph);
+			Line_match m(node_list[i], edge_list[i], query_list[i], data_graph);
 			//random walk to find match
 			// generate query and put into this dir
-			m.ring_match(_query_dir);
+			m.match(_query_dir);
 		}
 		
 		
