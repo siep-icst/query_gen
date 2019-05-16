@@ -23,8 +23,8 @@ private:
     int queryNum;    //generate how many queries in this file
 
     bool isDuplicate(std::vector<int*>&, std::vector<int>&, std::vector<std::pair<int,int>*>&, std::vector<int>&);
-	int get_RandStartId(int _tmp_query_len);
-	int get_LineStartId(int _tmp_query_len);
+	// int get_RandStartId(int _tmp_query_len);
+	// int get_LineStartId(int _tmp_query_len);
 };
 
 #endif

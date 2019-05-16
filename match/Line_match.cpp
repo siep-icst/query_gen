@@ -103,26 +103,26 @@ Line_match::isDuplicate(std::vector<int*>& query_set, vector<int>& vlabel, std::
     return false;
 }
 
-int Line_match::get_RandStartId(int _tmp_query_len)
-{
-    srand((unsigned)time(NULL)); 
-    return rand()%_tmp_query_len;
-}
+// int Line_match::get_RandStartId(int _tmp_query_len)
+// {
+//     srand((unsigned)time(NULL)); 
+//     return rand()%_tmp_query_len;
+// }
 
-int Line_match::get_LineStartId(int _tmp_query_len)
-{
-    srand((unsigned)time(NULL)); 
-    int flag=rand()%2;
-    if(flag==0)
-    {
-        return 0;
-    }
-    else
-    {
-        return _tmp_query_len-1;
-    }
+// int Line_match::get_start_pos(int _head_pos,int _tail_pos)
+// {
+//     srand((unsigned)time(NULL)); 
+//     int flag=rand()%2;
+//     if(flag==0)
+//     {
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//     }
         
-}
+// }
 
 
 
@@ -132,6 +132,7 @@ Line_match::match(std::string _query_dir)
 //    cout<<"check sortEdges: "<<sizeof(sortEdges)<<endl;
 	if(qsize > dsize)
 	{
+        printf(" number of vertices of query is too large\n");
         //vertex count of query > vertex count of graph
 		return;
 	}
@@ -155,20 +156,38 @@ Line_match::match(std::string _query_dir)
             std::vector<int> elabel;
             for (int i = 0; i < qsize; i ++)
             {
+                int head_pos=-1;
+                int tail_pos=-1;
                 //random select a mapping of the first query node
                 if (i == 0) 
                 {
                     int qid = rand()%dsize;
                     vid.push_back(qid);
                     vlabel.push_back(data->vertices[qid].label);
+                    head_pos=0;
+                    tail_pos=0;
                     continue;
                 }
 				bool nodeAdded = false;
-                for (int t2 = 0; t2 < MAXSEARCHTIME2; t2 ++) 
+                    
+                for (int t2 = 0; t2 < 2; t2 ++) 
                 {
+                    // search from head or tail
                     bool queryFound2 = true;
                     //random select a vertex in the possible vertex list
-                    int randForStartId = this->get_LineStartId(i);
+
+                    
+                    int randForStartId;
+                    if(t2==0)
+                    {
+                        randForStartId=head_pos;
+                    }
+                    else
+                    {
+                        randForStartId=tail_pos;
+                    }
+                    
+
                     //random select a known node to expand
 				 	//printf("vid size is %d, randForStartId is %d\n",vid.size(),randForStartId);
                     int startId = vid[randForStartId];
@@ -207,6 +226,14 @@ Line_match::match(std::string _query_dir)
                         pair<int,int> * tmpPairPtr = new pair<int,int>(i,randForStartId);
                         edge.push_back(tmpPairPtr);
                         elabel.push_back(data->vertices[startId].in[randPosInNeibList].elb);
+                        if(randForStartId==head_pos)
+                        {
+                            head_pos=i;
+                        }
+                        else if(randForStartId==tail_pos)
+                        {
+                            tail_pos=i;
+                        }
                     }
                     else 
                     {
@@ -233,10 +260,18 @@ Line_match::match(std::string _query_dir)
                         pair<int,int> * tmpPairPtr = new pair<int,int>(randForStartId,i);
                         edge.push_back(tmpPairPtr);
                         elabel.push_back(data->vertices[startId].out[randPosOutNeibList].elb);
+                                                if(randForStartId==head_pos)
+                        {
+                            head_pos=i;
+                        }
+                        else if(randForStartId==tail_pos)
+                        {
+                            tail_pos=i;
+                        }
                     }
                     if (queryFound2)
                         break;
-                    if (t2 == MAXSEARCHTIME2 - 1)
+                    if (t2 == 1)
                         queryFound = false;
                 }
                 if (!queryFound) 
