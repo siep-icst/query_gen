@@ -246,7 +246,7 @@ Line_match::match(std::string _query_dir)
             }
             //cout << "minimum graph find!" << endl;
 
-            printf("query found\n");
+
 
             if (queryFound) 
             {
@@ -268,9 +268,10 @@ Line_match::match(std::string _query_dir)
                 //check if duplicates
                 if(isDuplicate(query_set, vlabel, edge, elabel))
                 {
-                    printf("duplicate!\n");
+
                     continue;
                 }
+                printf("query found, no duplicate\n");
                 //output the query graph
                 string file = _query_dir + "/q" + Util::int2string(Line_match::query_count) + ".g";
                 FILE* ofp = fopen(file.c_str(), "w+");
