@@ -143,6 +143,7 @@ Line_match::match(std::string _query_dir)
     for(int qq = 0; qq < this->queryNum; ++qq)
     {
         //NOTICE: srand is needed to produce random number, otherwise every time the number sequence generated will be the same
+        printf("aim to get %d-vertices query\n",qsize);
         srand((unsigned)time(NULL)); 
         //NOTICE: the searching is based on random rather than dfs, which is not strictly in random
         for (int t = 0; t < MAXSEARCHTIME; t ++) 
