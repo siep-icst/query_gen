@@ -49,7 +49,7 @@ int Ring_match::find_pos_in_nei_list(std::vector<Neighbor>& list,int id)
 		return -1;
 	for (it = list.begin(); it != list.end(); it ++) 
     {
-		if (it->vid == value) 
+		if (it->vid == id) 
         {
 			pos=it - list.begin();
 			break;
