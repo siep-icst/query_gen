@@ -39,7 +39,7 @@ $(objdir)Star_match.o: match/Star_match.cpp match/Star_match.h
 $(objdir)Line_match.o: match/Line_match.cpp match/Line_match.h
 	$(CC) $(CFLAGS) match/Line_match.cpp -o $(objdir)Line_match.o
 
-$(objdir)Line_match.o: match/Ring_match.cpp match/Ring_match.h
+$(objdir)Ring_match.o: match/Ring_match.cpp match/Ring_match.h
 	$(CC) $(CFLAGS) match/Ring_match.cpp -o $(objdir)Ring_match.o
 
 $(objdir)IO_data.o: io/IO_data.cpp io/IO_data.h
