@@ -11,7 +11,7 @@ library = #-lgcov -coverage
 
 objdir = ./objs/
 objfile = $(objdir)Util.o $(objdir)IO.o \
-$(objdir)Match.o $(objdir)Star_match.o $(objdir)Line_match.o \
+$(objdir)Match.o $(objdir)Star_match.o $(objdir)Line_match.o $(objdir)Ring_match.o\
 $(objdir)Graph.o \
 $(objdir)IO_data.o $(objdir)Line_query.o $(objdir)Clique_query.o $(objdir)Ring_query.o \
 $(objdir)Star_query.o
@@ -38,6 +38,9 @@ $(objdir)Star_match.o: match/Star_match.cpp match/Star_match.h
 
 $(objdir)Line_match.o: match/Line_match.cpp match/Line_match.h
 	$(CC) $(CFLAGS) match/Line_match.cpp -o $(objdir)Line_match.o
+
+$(objdir)Line_match.o: match/Ring_match.cpp match/Ring_match.h
+	$(CC) $(CFLAGS) match/Ring_match.cpp -o $(objdir)Ring_match.o
 
 $(objdir)IO_data.o: io/IO_data.cpp io/IO_data.h
 	$(CC) $(CFLAGS) io/IO_data.cpp -o $(objdir)IO_data.o

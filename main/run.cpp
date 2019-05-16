@@ -8,6 +8,7 @@
 #include "../match/Match.h"
 #include "../match/Star_match.h"
 #include "../match/Line_match.h"
+#include "../match/ring_match.h"
 #include "../patterns/Query_patterns.h"
 #include <iostream>
 
