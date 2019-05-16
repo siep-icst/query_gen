@@ -246,6 +246,8 @@ Line_match::match(std::string _query_dir)
             }
             //cout << "minimum graph find!" << endl;
 
+            printf("query found\n");
+
             if (queryFound) 
             {
                 int remainEdgeNum = edgeNum + 1 - qsize;
@@ -266,6 +268,7 @@ Line_match::match(std::string _query_dir)
                 //check if duplicates
                 if(isDuplicate(query_set, vlabel, edge, elabel))
                 {
+                    printf("duplicate!\n");
                     continue;
                 }
                 //output the query graph
