@@ -4,4 +4,4 @@ then
 fi
 make clean
 make
-./run.exe star dataset/yeast_new.igraph query_requirement/star_query_requirement.txt yeast_star_query
+./run.exe line dataset/yeast_new.igraph query_requirement/line_query_requirement.txt test_yeast_line_query
