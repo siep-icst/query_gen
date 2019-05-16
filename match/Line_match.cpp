@@ -254,66 +254,7 @@ Line_match::match(std::string _query_dir)
                     cerr<<"not a line query"<<endl;
                 }
                 //cout << "the remainEdge number is " << remainEdgeNum  << endl;
-                int added = 0;
-                int size = vid.size();
-                for (int j = 0; j < size; j ++) 
-                {
-                    for (int i = 0; i < size; i ++) 
-                    {
-                        if (j == i)
-                            continue;
-                        if(!(i==0&&j==size-1||i==size-1&&j==0))
-                            continue;
-                        int src,dst,elb;
-                        int iID = vid[i], jID = vid[j];
-                        //cout << "iID is " << iID << ", jID is " << jID << endl;
-                        bool findInList = false;
-//						printf("the in size is %d\n",data->vertices[iID].in.size());
-                        if (myFind_in_Line(data->vertices[iID].in, jID) != -1) 
-                        {
-                            findInList = true;
-                            src = j;
-                            dst = i;
-                            elb = myFind_in_Line(data->vertices[iID].in, jID);
-                        } 
-                        else if (myFind_in_Line(data->vertices[iID].out, jID) != -1)
-                        {
-                            findInList = true;
-                            src = i;
-                            dst = j;
-                            elb = myFind_in_Line(data->vertices[iID].out, jID);
-                        }
-                        //if (findInList) cout << "	find an edge!" << endl;
-                        if (!findInList) 
-                        {
-                            //cout << "	not find!" << endl;
-                            continue;
-                        }
-                        bool dupl = false;
-                        for (int p = 0; p < edge.size(); p ++) 
-                        {
-                            if (edge[p]->first == src && edge[p]->second == dst) 
-                            {
-                                dupl = true;
-                                break;
-                            }
-                        }
-                        if (!dupl) 
-                        {
-                            pair<int,int> * tmpPairPtr = new pair<int,int>(src, dst);
-                            edge.push_back(tmpPairPtr);
-                            elabel.push_back(elb);
-                            added ++ ;
-                        }
-                        //cout << "	an edge added!" << endl;
-                        if (added >= remainEdgeNum) 
-                            break;
-                    }
-                    if (added >= remainEdgeNum)
-                        break;
-                }
-                if (added < remainEdgeNum)
-                    queryFound = false;
+
             }
 
             if (queryFound) 
@@ -344,6 +285,9 @@ Line_match::match(std::string _query_dir)
                 {
                     fprintf(ofp, "v %d %d\n", i, vlabel[i]);
                 }
+
+                printf(" edge num in this query: %d\n",edge.size());
+
                 for (int i = 0; i < edge.size(); i ++) 
                 {
                     fprintf(ofp, "e %d %d %d\n", edge[i]->first, edge[i]->second, elabel[i]);
