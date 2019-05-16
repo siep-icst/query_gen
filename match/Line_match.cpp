@@ -241,14 +241,14 @@ Line_match::match(std::string _query_dir)
                         vid.push_back(nextId);
                         vlabel.push_back(data->vertices[nextId].label);
                         // the two ids are id in the vector"vid"
-                        pair<int,int> * tmpPairPtr = new pair<int,int>(i,randForStartId);
+                        pair<int,int> * tmpPairPtr = new pair<int,int>(i,rand_start_pos);
                         edge.push_back(tmpPairPtr);
                         elabel.push_back(data->vertices[startId].in[randPosInNeibList].elb);
-                        if(randForStartId==head_pos)
+                        if(rand_start_pos==head_pos)
                         {
                             head_pos=i;
                         }
-                        else if(randForStartId==tail_pos)
+                        else if(rand_start_pos==tail_pos)
                         {
                             tail_pos=i;
                         }
@@ -281,14 +281,14 @@ Line_match::match(std::string _query_dir)
 						
                         vid.push_back(nextId);
                         vlabel.push_back(data->vertices[nextId].label);
-                        pair<int,int> * tmpPairPtr = new pair<int,int>(randForStartId,i);
+                        pair<int,int> * tmpPairPtr = new pair<int,int>(rand_start_pos,i);
                         edge.push_back(tmpPairPtr);
                         elabel.push_back(data->vertices[startId].out[randPosOutNeibList].elb);
-                        if(randForStartId==head_pos)
+                        if(rand_start_pos==head_pos)
                         {
                             head_pos=i;
                         }
-                        else if(randForStartId==tail_pos)
+                        else if(rand_start_pos==tail_pos)
                         {
                             tail_pos=i;
                         }
