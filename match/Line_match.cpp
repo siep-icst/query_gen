@@ -327,10 +327,10 @@ Line_match::match(std::string _query_dir)
                     continue;
                 }
                 //output the query graph
-                string file = _query_dir + "/q" + Util::int2string(Match::query_count) + ".g";
+                string file = _query_dir + "/q" + Util::int2string(Line_match::query_count) + ".g";
                 FILE* ofp = fopen(file.c_str(), "w+");
 
-                fprintf(ofp, "t # %d\n", Match::query_count);
+                fprintf(ofp, "t # %d\n", Line_match::query_count);
                 query_count++;
 				int maxVLabel = 0, maxELabel = 0;
 				for (int i = 0; i < qsize; i ++)
