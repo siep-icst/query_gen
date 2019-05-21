@@ -228,14 +228,14 @@ void Star_match::match(std::string _query_dir)
         for (int i = 0; i < query_e_num; i ++)
             if (elabel_list[i] > max_e_label)
                 max_e_label = elabel_list[i];
-        fprintf(ofp, "%d %d %d %d\n", query_v_num, query_e_num, max_v_label, max_e_label);
+        fprintf(ofp, "%d %d %d\n", query_v_num, query_e_num, max_v_label);
         for (int i = 0; i < query_v_num; i ++)
         {
             fprintf(ofp, "v %d %d\n", i, vlabel_list[i]);
         }
         for (int i = 0; i < query_e_num; i ++) 
         {
-            fprintf(ofp, "e %d %d %d\n", edge_list[i]->first, edge_list[i]->second, elabel_list[i]);
+            fprintf(ofp, "e %d %d\n", edge_list[i]->first, edge_list[i]->second);
         }
 
         fprintf(ofp, "t # -1\n");
