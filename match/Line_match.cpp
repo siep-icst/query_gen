@@ -354,7 +354,8 @@ Line_match::match(std::string _query_dir)
 				for (int i = 0; i < edge.size(); i ++)
 					if (elabel[i] > maxELabel)
 						maxELabel = elabel[i];
-                fprintf(ofp, "%d %d %d %d\n", qsize, edgeNum, maxVLabel, maxELabel);
+                // fprintf(ofp, "%d %d %d %d\n", qsize, edgeNum, maxVLabel, maxELabel);
+                fprintf(ofp, "%d %d %d\n", qsize, edgeNum, maxVLabel);
                 for (int i = 0; i < qsize; i ++)
                 {
                     fprintf(ofp, "v %d %d\n", i, vlabel[i]);
@@ -364,7 +365,7 @@ Line_match::match(std::string _query_dir)
 
                 for (int i = 0; i < edge.size(); i ++) 
                 {
-                    fprintf(ofp, "e %d %d %d\n", edge[i]->first, edge[i]->second, elabel[i]);
+                    fprintf(ofp, "e %d %d\n", edge[i]->first, edge[i]->second);
                 }
 
                 fprintf(ofp, "t # -1\n");
