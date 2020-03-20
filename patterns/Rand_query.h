@@ -1,5 +1,5 @@
-#ifndef _RAND_QUERY_H
-#define _RAND_QUERY_H
+#ifndef _STAR_QUERY_H
+#define _STAR_QUERY_H
 
 #include "../util/Util.h"
 #include "../graph/Graph.h"

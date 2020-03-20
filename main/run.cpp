@@ -11,7 +11,7 @@
 #include "../match/Ring_match.h"
 #include "../patterns/Query_patterns.h"
 #include <iostream>
-
+#define SPARSE_RATIO 1.5
 
 using namespace std;
 
@@ -19,6 +19,14 @@ using namespace std;
 vector<int> node_list;
 vector<int> edge_list;
 vector<int> query_list;
+
+void run_rand_query(string _query_req_path,string _query_dir,string _data_path)
+{
+	vector<int> node_num_list;
+	vector<char> type_list;
+	vector<int> diff_query_list;
+
+}
 
 void run_line_query(string _query_req_path,string _query_dir,string _data_path)
 {

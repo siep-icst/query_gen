@@ -35,6 +35,8 @@ Graph::addVertex(LABEL _vlb)
 void 
 Graph::addEdge(VID _from, VID _to, LABEL _elb)
 {
+	this->vertices[_from].nei_list.push_back(Neighbor(_to, _elb));
+	this->vertices[_to].nei_list.push_back(Neighbor(_from, _elb));
 	this->vertices[_from].out.push_back(Neighbor(_to, _elb));
 	this->vertices[_to].in.push_back(Neighbor(_from, _elb));
 	++this->vertices[_from].outdegree;

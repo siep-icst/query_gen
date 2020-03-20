@@ -36,6 +36,7 @@ public:
 	//NOTICE:VID and EID is just used in this single graph
 	std::vector<Neighbor> in;
 	std::vector<Neighbor> out;
+	std::vector<Neighbor> nei_list;
 	int indegree;
 	int outdegree;
 	int degree;
